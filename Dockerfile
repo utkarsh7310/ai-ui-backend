@@ -1,10 +1,7 @@
-FROM eclipse-temurin:17-jdk-jammy
+FROM maven:3.9-eclipse-temurin-17
 WORKDIR /app
 COPY . .
-# Make maven wrapper executable
-RUN chmod +x mvnw
-# Build the Spring Boot app
-RUN ./mvnw clean package -DskipTests
-# Run the application
+# Using standard Maven instead of the wrapper
+RUN mvn clean package -DskipTests
 EXPOSE 8080
 CMD ["sh", "-c", "java -jar target/*.jar"]
